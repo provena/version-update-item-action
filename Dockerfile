@@ -1,13 +1,14 @@
 FROM python:3-slim AS builder
 
+WORKDIR /app
+
 # Just dependencies to minimise rebuilds
-COPY requirements.txt /app
+COPY requirements.txt .
 
 # We are installing a dependency here directly into our app source dir
 RUN pip install --target=/app -r requirements.txt
 
 ADD . /app
-WORKDIR /app
 
 # A distroless container image with Python and some basics like SSL certificates
 # https://github.com/GoogleContainerTools/distroless
