@@ -221,7 +221,7 @@ async def update_details_of_item(
 
     # Get correct domain info update model
     domain_info_model = SUBTYPE_TO_DOMAIN_INFO.get(subtype)
-    assert domain_info_model, f"Unexpected missing domain info model for {subtype = }."
+    assert domain_info_model, f"Unexpected missing domain info model for {subtype}."
     update_payload = domain_info_model.parse_obj(merged_metadata)
     print(update_payload.dict())
 

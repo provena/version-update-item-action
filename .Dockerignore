@@ -1,0 +1,6 @@
+.env
+action.yml
+dev-requirements.txt
+LICENSE
+mypy.ini
+.github
