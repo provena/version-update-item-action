@@ -1,5 +1,5 @@
 name: "Update Provena registry item"
-description: "Creates a new version of an existing item in a Provena deployment, providing a reason and an optional set of attribute updates."
+description: "Creates a new version of a Provena item with optionally updated attributes."
 author: "Peter Baker"
 inputs:
   offline_token:
@@ -25,7 +25,7 @@ inputs:
     description: "Would you like to apply a set of updates after versioning? If so this JSON will be merged with the updated item domain info and an update applied. Please ensure this is a valid serialised JSON string."
     required: false
 outputs:
-  new_id: 
+  new_id:
     description: "The ID of the new version of the item"
 runs:
   using: "docker"
