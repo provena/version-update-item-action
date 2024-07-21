@@ -1,0 +1,32 @@
+name: "Update Provena registry item"
+description: "Creates a new version of an existing item in a Provena deployment, providing a reason and an optional set of attribute updates."
+author: "Peter Baker"
+inputs:
+  offline_token:
+    description: "Offline token which is suitable for the specified provena domain, realm and client."
+    required: true
+    secret: true
+  domain:
+    description: "The base domain for the provena deployment"
+    required: true
+  realm_name:
+    description: "The realm name for the keycloak instance for this deployment - contact administrator if unsure."
+    required: true
+  item_id:
+    description: "The id of the item to create a new version for."
+    required: true
+  version_reason:
+    description: "What reason should be provided for the creation of the new version?"
+    required: true
+  update_reason:
+    description: "What reason should be provided for the update of metadata attributes?"
+    required: false
+  attribute_updates:
+    description: "Would you like to apply a set of updates after versioning? If so this JSON will be merged with the updated item domain info and an update applied. Please ensure this is a valid serialised JSON string."
+    required: false
+outputs:
+  new_id: 
+    description: "The ID of the new version of the item"
+runs:
+  using: "docker"
+  image: "Dockerfile"
