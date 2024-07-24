@@ -10,9 +10,9 @@ jobs:
         uses: provena/version-update-item-action@main
         with:
           offline_token: ${{ secrets.PROVENA_OFFLINE_TOKEN }}
-          domain: "dev.rrap-is.com"
-          realm_name: "rrap"
-          item_id: "10378.1/1925572"
+          domain: ${{ secrets.PROVENA_DOMAIN }}
+          realm_name: ${{ secrets.PROVENA_REALM_NAME }}
+          item_id: ${{ secrets.PROVENA_ITEM_ID }}
           version_reason: "Testing GitHub Action which can version and update items"
           update_reason: "Updating git custom attributes, as well as source URL."
           attribute_updates: |
