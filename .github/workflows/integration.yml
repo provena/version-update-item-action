@@ -3,16 +3,24 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      PROVENA_DOMAIN: ${{ secrets.PROVENA_DOMAIN }}
+      PROVENA_REALM_NAME: ${{ secrets.PROVENA_REALM_NAME }}
+      PROVENA_ITEM_ID: ${{ secrets.PROVENA_ITEM_ID }}
     steps:
-      - uses: actions/checkout@master
+      - name: Debug - Print Environment Variables (Redacted)
+        run: |
+          echo "PROVENA_DOMAIN: ${PROVENA_DOMAIN//./__}"
+          echo "PROVENA_REALM_NAME: ${PROVENA_REALM_NAME:0:10}..."
+          echo "PROVENA_ITEM_ID: ${PROVENA_ITEM_ID:0:10}..."
       - name: Version and Update Item
         id: version-update-item
         uses: provena/version-update-item-action@main
         with:
           offline_token: ${{ secrets.PROVENA_OFFLINE_TOKEN }}
-          domain: ${{ secrets.PROVENA_DOMAIN }}
-          realm_name: ${{ secrets.PROVENA_REALM_NAME }}
-          item_id: ${{ secrets.PROVENA_ITEM_ID }}
+          domain: ${{ env.PROVENA_DOMAIN }}
+          realm_name: ${{ env.PROVENA_REALM_NAME }}
+          item_id: ${{ env.PROVENA_ITEM_ID }}
           version_reason: "Testing GitHub Action which can version and update items"
           update_reason: "Updating git custom attributes, as well as source URL."
           attribute_updates: |
@@ -24,3 +32,5 @@ jobs:
               },
               "source_url": "https://github.com/${{ github.repository }}"
             }
+      - name: Display updated model ID
+        run: echo "Updated model version ID is ${{ steps.update-item.outputs.new_id }}"
